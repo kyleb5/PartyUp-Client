@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 // Context API Docs: https://beta.reactjs.org/learn/passing-data-deeply-with-context
 
 import React, {
@@ -25,9 +26,11 @@ const AuthProvider = (props) => {
 
   const updateUser = useMemo(
     () => (uid) =>
+      // eslint-disable-next-line implicit-arrow-linebreak
       checkUser(uid).then((gamerInfo) => {
         setUser({ fbUser: oAuthUser, ...gamerInfo });
       }),
+    // eslint-disable-next-line comma-dangle
     [oAuthUser]
   );
 
