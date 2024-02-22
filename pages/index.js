@@ -18,26 +18,31 @@ function Home() {
   console.warn(games);
 
   return (
-    <div
-      className="text-center d-flex flex-column align-items-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-      }}
-    >
-      <h1>Hello {user.fbUser.displayName}! </h1>
-      <p>Click the button below to logout!</p>
+    <div className="text-center d-flex flex-column align-items-center">
+      <title>Exploring Party Up</title>
 
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
-        <Image src="plusicon.png" alt="Make a group" height={64} width={64} style={{ marginTop: '6rem', marginRight: '1rem' }} />
-        {games.slice(0, 5).map((game) => (
-          <div key={game.id} style={{ margin: '10px', marginLeft: '0.5rem', marginRight: '0.5rem' }}>
-            <Link href={`/game/${game.id}`} passHref>
-              <Image src={`http://127.0.0.1:8000${game.cover_image}`} alt={`Cover for ${game.name}`} style={{ width: '180px', height: '240px' }} draggable="false" />
-            </Link>
-          </div>
-        ))}
-        <Image src="/rightarrow.png" alt="Arrow" height={64} weidth={64} style={{ marginTop: '6rem', marginLeft: '1rem' }} />
+      <div
+        style={{
+          backgroundColor: 'black',
+          width: '100%',
+          paddingTop: '5rem',
+          paddingBottom: '5rem',
+        }}
+      >
+        <h1>Hello {user.fbUser.displayName}! </h1>
+        <p>Click the button below to logout!</p>
+
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Image src="plusicon.png" alt="Make a group" height={64} width={64} style={{ marginTop: '6rem', marginRight: '1rem' }} />
+          {games.slice(0, 5).map((game) => (
+            <div key={game.id} style={{ margin: '10px', marginLeft: '0.5rem', marginRight: '0.5rem' }}>
+              <Link href={`/game/${game.id}`} passHref>
+                <Image src={`http://127.0.0.1:8000${game.cover_image}`} alt={`Cover for ${game.name}`} style={{ width: '180px', height: '240px' }} draggable="false" />
+              </Link>
+            </div>
+          ))}
+          <Image src="/rightarrow.png" alt="Arrow" height={64} width={64} style={{ marginTop: '6rem', marginLeft: '1rem' }} />
+        </div>
       </div>
 
       <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
