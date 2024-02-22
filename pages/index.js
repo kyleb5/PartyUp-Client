@@ -25,6 +25,7 @@ function Home() {
         padding: '30px',
       }}
     >
+      <title>Exploring Party Up</title>
       <h1>Hello {user.fbUser.displayName}! </h1>
       <p>Click the button below to logout!</p>
 
