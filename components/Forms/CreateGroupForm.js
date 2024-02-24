@@ -1,48 +1,83 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { FormGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
+import getUserFromFBKey from '../../utils/data/userData';
+import { useAuth } from '../../utils/context/authContext';
+import { createGroupPost, getGames } from '../../utils/data/gameData';
 
 const initialState = {
   title: '',
+  game: 1,
   description: '',
   needed_players: 0,
   skill_level: '',
   platform: '',
   region: '',
-  mic_needed: true,
+  mic_needed: '',
   status: true,
 };
 
 function CreateGroupForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
+  const [allGames, setAllGames] = useState([]);
+  const [userData, setUserData] = useState([]);
+  const currentDate = new Date();
+  const timestamp = currentDate.getTime();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (obj.id) setFormInput(obj);
   }, [obj]);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  useEffect(() => {
+    getGames().then(setAllGames);
+    getUserFromFBKey(user.uid).then(setUserData);
+  }, [user.uid]);
 
-    // When changing mic needed, value kept converting to a string, this will prevent that
-    // eslint-disable-next-line no-nested-ternary
-    const updatedValue = value === 'true' ? true : value === 'false' ? false : value;
-
-    setFormInput((prevInput) => ({
-      ...prevInput,
-      [name]: updatedValue,
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormInput((prevState) => ({
+      ...prevState,
+      [name]: value,
     }));
   };
 
-  console.warn(formInput);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (obj.id) {
+      console.warn('WIP');
+    } else {
+      createGroupPost({
+        ...formInput,
+        game: Number(formInput.game),
+        mic_needed: formInput.mic_needed === 'true' ? true : formInput.mic_needed === 'false' ? false : undefined,
+        uuid: userData[0].id,
+        timestamp,
+      });
+    }
+  };
 
   return (
     <div className="center-block-container">
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Form.Control type="text" placeholder="Enter Group Name Here" name="title" required value={formInput.title} onChange={handleChange} />
         </FormGroup>
+
+        <Form.Group>
+          <Form.Label>Select Game:</Form.Label>
+          <Form.Control as="select" name="game" required value={formInput.game.id} onChange={handleChange}>
+            <option disabled>Select Game</option>
+            {allGames.map((game) => (
+              <option key={game.id} value={game.id}>
+                {game.name}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
 
         <FormGroup>
           <Form.Control type="text" placeholder="Enter Description" name="description" required value={formInput.description} onChange={handleChange} />
@@ -77,11 +112,13 @@ function CreateGroupForm({ obj }) {
 
         <FormGroup>
           <Form.Label>Mic Needed:</Form.Label>
-          <Form.Check type="radio" label="Yes" name="mic_needed" value checked={formInput.mic_needed === true} onChange={handleChange} />
-          <Form.Check type="radio" label="No" name="mic_needed" value={false} checked={formInput.mic_needed === false} onChange={handleChange} />
+          <Form.Check type="radio" label="Yes" name="mic_needed" value="true" checked={formInput.mic_needed === 'true'} onChange={handleChange} />
+          <Form.Check type="radio" label="No" name="mic_needed" value="false" checked={formInput.mic_needed === 'false'} onChange={handleChange} />
         </FormGroup>
 
-        <Button variant="danger">Submit</Button>
+        <Button variant="danger" type="submit">
+          Submit
+        </Button>
       </Form>
     </div>
   );
@@ -90,28 +127,16 @@ function CreateGroupForm({ obj }) {
 CreateGroupForm.propTypes = {
   obj: PropTypes.shape({
     id: PropTypes.number,
-    game: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      cover_image: PropTypes.string,
-    }),
+    game: PropTypes.number,
     title: PropTypes.string,
     description: PropTypes.string,
     needed_players: PropTypes.number,
     skill_level: PropTypes.string,
     platform: PropTypes.string,
     region: PropTypes.string,
-    mic_needed: PropTypes.bool,
+    mic_needed: PropTypes.string,
     status: PropTypes.bool,
-    uuid: PropTypes.shape({
-      id: PropTypes.number,
-      fbKey: PropTypes.string,
-      joinDate: PropTypes.number,
-      account_playstation: PropTypes.string,
-      account_xbox: PropTypes.string,
-      account_steam: PropTypes.string,
-      account_discord: PropTypes.string,
-    }),
+    uuid: PropTypes.string,
     timestamp: PropTypes.number,
   }),
 };
