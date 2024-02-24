@@ -4,6 +4,7 @@ import Image from 'react-bootstrap/Image';
 import Link from 'next/link';
 import { Button } from 'react-bootstrap';
 import { signOut } from '../utils/auth';
+import { clientCredentials } from '../utils/client';
 import { useAuth } from '../utils/context/authContext';
 import { getGames } from '../utils/data/gameData';
 
@@ -37,7 +38,7 @@ function Home() {
           {games.slice(0, 5).map((game) => (
             <div key={game.id} style={{ margin: '10px', marginLeft: '0.5rem', marginRight: '0.5rem' }}>
               <Link href={`/game/${game.id}`} passHref>
-                <Image src={`http://127.0.0.1:8000${game.cover_image}`} alt={`Cover for ${game.name}`} style={{ width: '180px', height: '240px' }} draggable="false" />
+                <Image src={`${clientCredentials.databaseURL}/${game.cover_image}`} alt={`Cover for ${game.name}`} style={{ width: '180px', height: '240px' }} draggable="false" />
               </Link>
             </div>
           ))}
