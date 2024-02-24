@@ -35,7 +35,7 @@ function CreateGroupForm({ obj }) {
   useEffect(() => {
     getGames().then(setAllGames);
     getUserFromFBKey(user.uid).then(setUserData);
-  }, []);
+  }, [user.uid]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
