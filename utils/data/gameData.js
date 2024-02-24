@@ -10,7 +10,7 @@ const getGames = () =>
       },
     })
       .then((response) => response.json())
-      .then((data) => resolve(Object.values(data)))
+      .then((data) => resolve(data))
       .catch(reject);
   });
 
@@ -40,4 +40,19 @@ const getGameGroups = (id) =>
       .catch(reject);
   });
 
-export { getGames, getSingleGame, getGameGroups };
+const createGroupPost = (payload) =>
+  new Promise((resolve, reject) => {
+    fetch(`${clientCredentials.databaseURL}/post`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch(reject);
+  });
+
+// eslint-disable-next-line object-curly-newline
+export { getGames, getSingleGame, getGameGroups, createGroupPost };
