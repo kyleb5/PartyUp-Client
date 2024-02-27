@@ -24,8 +24,7 @@ function CreateGroupForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [allGames, setAllGames] = useState([]);
   const [userData, setUserData] = useState([]);
-  const currentDate = new Date();
-  const timestamp = currentDate.getTime();
+  const timestamp = new Date();
   const { user } = useAuth();
 
   useEffect(() => {
