@@ -57,7 +57,7 @@ PostCards.propTypes = {
     uuid: PropTypes.shape({
       id: PropTypes.number,
       fbKey: PropTypes.string,
-      joinDate: PropTypes.number,
+      joinDate: PropTypes.string,
       account_playstation: PropTypes.string,
       account_xbox: PropTypes.string,
       account_steam: PropTypes.string,

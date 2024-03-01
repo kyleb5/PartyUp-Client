@@ -12,7 +12,7 @@ const initialState = {
   title: '',
   game: 1,
   description: '',
-  needed_players: 0,
+  needed_players: '',
   skill_level: '',
   platform: '',
   region: '',
@@ -36,6 +36,8 @@ function CreateGroupForm({ obj }) {
     getUserFromFBKey(user.uid).then(setUserData);
   }, [user.uid]);
 
+  console.warn(userData);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput((prevState) => ({
@@ -49,11 +51,12 @@ function CreateGroupForm({ obj }) {
     if (obj.id) {
       console.warn('WIP');
     } else {
+      console.warn(userData);
       createGroupPost({
         ...formInput,
         game: Number(formInput.game),
         mic_needed: formInput.mic_needed === 'true' ? true : formInput.mic_needed === 'false' ? false : undefined,
-        uuid: userData[0].id,
+        uuid: userData.id,
         timestamp,
       });
     }
@@ -129,7 +132,7 @@ CreateGroupForm.propTypes = {
     game: PropTypes.number,
     title: PropTypes.string,
     description: PropTypes.string,
-    needed_players: PropTypes.number,
+    needed_players: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     skill_level: PropTypes.string,
     platform: PropTypes.string,
     region: PropTypes.string,

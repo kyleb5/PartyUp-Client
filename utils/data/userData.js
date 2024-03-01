@@ -10,7 +10,13 @@ const getUserFromFBKey = (id) =>
       },
     })
       .then((response) => response.json())
-      .then((data) => resolve(data))
+      .then((data) => {
+        if (Array.isArray(data)) {
+          resolve(data[0]);
+        } else {
+          resolve(data);
+        }
+      })
       .catch(reject);
   });
 

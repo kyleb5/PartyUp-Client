@@ -14,8 +14,6 @@ function Home() {
     getGames().then(setGames);
   }, []);
 
-  console.warn(games);
-
   return (
     <div className="text-center d-flex flex-column align-items-center">
       <title>Exploring Party Up</title>
