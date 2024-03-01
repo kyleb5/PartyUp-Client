@@ -18,9 +18,6 @@ export default function GameDetails() {
     }
   }, [id]);
 
-  console.warn(gameDetails);
-  console.warn(gameGroups);
-
   return (
     <>
       <title>{gameDetails.name}</title>
