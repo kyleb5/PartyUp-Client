@@ -1,3 +1,4 @@
+/* eslint-disable implicit-arrow-linebreak */
 import { clientCredentials } from '../client';
 
 const getUserFromFBKey = (id) =>
@@ -20,4 +21,17 @@ const getUserFromFBKey = (id) =>
       .catch(reject);
   });
 
-export default getUserFromFBKey;
+const getSingleUser = (id) =>
+  new Promise((resolve, reject) => {
+    fetch(`${clientCredentials.databaseURL}/user/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch(reject);
+  });
+
+export { getUserFromFBKey, getSingleUser };
