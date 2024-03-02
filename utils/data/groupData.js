@@ -55,4 +55,17 @@ const createGroupMember = (payload) =>
       .catch(reject);
   });
 
-export { getSingleGroup, getGroups, getUserInGroup, createGroupMember };
+const updateGroup = (payload) =>
+  new Promise((resolve, reject) => {
+    fetch(`${clientCredentials.databaseURL}/post/${payload.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((data) => resolve(data))
+      .catch(reject);
+  });
+
+export { getSingleGroup, getGroups, getUserInGroup, createGroupMember, updateGroup };

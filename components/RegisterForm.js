@@ -34,8 +34,6 @@ function RegisterForm({ user, updateUser }) {
     }));
   };
 
-  console.warn(formData);
-
   return (
     <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '75vh', color: 'white' }}>
       <Form onSubmit={handleSubmit} className="w-50">
