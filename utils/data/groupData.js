@@ -68,4 +68,16 @@ const updateGroup = (payload) =>
       .catch(reject);
   });
 
-export { getSingleGroup, getGroups, getUserInGroup, createGroupMember, updateGroup };
+const deleteGroup = (id) =>
+  new Promise((resolve, reject) => {
+    fetch(`${clientCredentials.databaseURL}/post/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((data) => resolve(data))
+      .catch(reject);
+  });
+
+export { getSingleGroup, getGroups, getUserInGroup, createGroupMember, updateGroup, deleteGroup };

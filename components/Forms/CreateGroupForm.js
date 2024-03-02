@@ -1,11 +1,13 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
+import { useRouter } from 'next/router';
 import { FormGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import getUserFromFBKey from '../../utils/data/userData';
 import { useAuth } from '../../utils/context/authContext';
+import { updateGroup } from '../../utils/data/groupData';
 import { createGroupPost, getGames } from '../../utils/data/gameData';
 
 const initialState = {
@@ -24,6 +26,7 @@ function CreateGroupForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [allGames, setAllGames] = useState([]);
   const [userData, setUserData] = useState([]);
+  const router = useRouter();
   const timestamp = new Date();
   const { user } = useAuth();
 
@@ -47,7 +50,21 @@ function CreateGroupForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
-      console.warn('WIP');
+      updateGroup({
+        id: formInput.id,
+        game: Number(formInput.game.id),
+        title: formInput.title,
+        description: formInput.description,
+        needed_players: formInput.needed_players,
+        skill_level: formInput.skill_level,
+        platform: formInput.platform,
+        region: formInput.region,
+        mic_needed: formInput.mic_needed === 'true' ? true : formInput.mic_needed === 'false' ? false : undefined,
+        status: formInput.status,
+        uuid: formInput.uuid.id,
+        timestamp: formInput.timestamp,
+      });
+      router.push(`/group/${obj.id}`);
     } else {
       createGroupPost({
         ...formInput,
@@ -56,8 +73,11 @@ function CreateGroupForm({ obj }) {
         uuid: userData.id,
         timestamp,
       });
+      router.push(`/game/${Number(formInput.game)}`);
     }
   };
+
+  console.warn(formInput);
 
   return (
     <div className="center-block-container">
@@ -79,17 +99,21 @@ function CreateGroupForm({ obj }) {
         </Form.Group>
 
         <FormGroup>
+          <Form.Label>Description</Form.Label>
           <Form.Control type="text" placeholder="Enter Description" name="description" required value={formInput.description} onChange={handleChange} />
         </FormGroup>
 
         <FormGroup>
+          <Form.Label>Needed Players</Form.Label>
           <Form.Control type="number" placeholder="Enter Needed Players" name="needed_players" required value={formInput.needed_players} onChange={handleChange} />
         </FormGroup>
 
         <FormGroup>
+          <Form.Label>Enter Skill Level</Form.Label>
           <Form.Control type="text" placeholder="Enter Skill Level" name="skill_level" required value={formInput.skill_level} onChange={handleChange} />
         </FormGroup>
         <FormGroup>
+          <Form.Label>Select Platform</Form.Label>
           <Form.Control as="select" name="platform" required value={formInput.platform} onChange={handleChange}>
             <option value="" disabled>
               Select Platform
@@ -111,8 +135,8 @@ function CreateGroupForm({ obj }) {
 
         <FormGroup>
           <Form.Label>Mic Needed:</Form.Label>
-          <Form.Check type="radio" label="Yes" name="mic_needed" value="true" checked={formInput.mic_needed === 'true'} onChange={handleChange} />
-          <Form.Check type="radio" label="No" name="mic_needed" value="false" checked={formInput.mic_needed === 'false'} onChange={handleChange} />
+          <Form.Check type="radio" label="Yes" name="mic_needed" value="true" checked={formInput.mic_needed === 'true' || formInput.mic_needed === true} onChange={handleChange} />
+          <Form.Check type="radio" label="No" name="mic_needed" value="false" checked={formInput.mic_needed === 'false' || formInput.mic_needed === false} onChange={handleChange} />
         </FormGroup>
 
         <Button variant="danger" type="submit">
