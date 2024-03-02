@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useAuth } from '../utils/context/authContext';
 // eslint-disable-next-line object-curly-newline
 import { getSingleGroup, createGroupMember, getUserInGroup, updateGroup, deleteGroup } from '../utils/data/groupData';
-import getUserFromFBKey from '../utils/data/userData';
+import { getUserFromFBKey } from '../utils/data/userData';
 import MembersCard from './MembersCard';
 
 function GroupDetailCard() {
@@ -33,13 +33,16 @@ function GroupDetailCard() {
     window.location.reload();
   };
 
+  const openThisGroup = () => {
+    updateGroup({ status: true, id });
+    window.location.reload();
+  };
+
   const deleteThisGroup = () => {
     deleteGroup(id);
     router.push('/');
   };
 
-  console.warn(usersInGroup);
-  console.warn(userData);
   return (
     <>
       <div>
@@ -67,13 +70,16 @@ function GroupDetailCard() {
             ) : (
               <>
                 <p>The Group is Closed, Nobody Can Join</p>
+                <Button variant="danger" style={{ marginLeft: '5px' }} onClick={openThisGroup}>
+                  Open Group
+                </Button>
                 <Button variant="danger" style={{ marginLeft: '5px' }} onClick={deleteThisGroup}>
                   Delete Group
                 </Button>
               </>
             )}
           </>
-        ) : usersInGroup.some((userInGroup) => userInGroup?.user === userData?.id) ? (
+        ) : usersInGroup.some((userInGroup) => userInGroup?.user?.id === userData?.id) ? (
           <p>You are already in the group</p>
         ) : groupDetails.status ? (
           <Button variant="primary" onClick={() => joinGroup(groupDetails.id, user.id)}>

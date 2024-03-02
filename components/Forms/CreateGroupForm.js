@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { FormGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
-import getUserFromFBKey from '../../utils/data/userData';
+import { getUserFromFBKey } from '../../utils/data/userData';
 import { useAuth } from '../../utils/context/authContext';
 import { updateGroup } from '../../utils/data/groupData';
 import { createGroupPost, getGames } from '../../utils/data/gameData';
@@ -50,9 +50,10 @@ function CreateGroupForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
+      console.warn(formInput);
       updateGroup({
         id: formInput.id,
-        game: Number(formInput.game.id),
+        game: Number(formInput?.game),
         title: formInput.title,
         description: formInput.description,
         needed_players: formInput.needed_players,
@@ -73,7 +74,7 @@ function CreateGroupForm({ obj }) {
         uuid: userData.id,
         timestamp,
       });
-      router.push(`/game/${Number(formInput.game)}`);
+      router.push('/');
     }
   };
 
@@ -83,6 +84,7 @@ function CreateGroupForm({ obj }) {
     <div className="center-block-container">
       <Form onSubmit={handleSubmit}>
         <FormGroup>
+          <Form.Label>Group Title</Form.Label>
           <Form.Control type="text" placeholder="Enter Group Name Here" name="title" required value={formInput.title} onChange={handleChange} />
         </FormGroup>
 
