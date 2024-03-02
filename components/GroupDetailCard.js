@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from 'react-bootstrap/Button';
 import { useAuth } from '../utils/context/authContext';
-import { getSingleGroup, createGroupMember, getUserInGroup } from '../utils/data/groupData';
+// eslint-disable-next-line object-curly-newline
+import { getSingleGroup, createGroupMember, getUserInGroup, updateGroup } from '../utils/data/groupData';
 import getUserFromFBKey from '../utils/data/userData';
 
 function GroupDetailCard() {
-  const [groupDetails, setGroupDetails] = useState({});
+  const [groupDetails, setGroupDetails] = useState([]);
   const [userData, setUserData] = useState({});
   const [usersInGroup, setUsersInGroup] = useState([]);
   const { user } = useAuth();
@@ -26,7 +27,13 @@ function GroupDetailCard() {
     window.location.reload();
   };
 
+  const closeGroup = () => {
+    updateGroup({ status: false, id });
+    window.location.reload();
+  };
+
   console.warn(usersInGroup);
+  console.warn(userData);
   return (
     <div>
       <p>Created By: {groupDetails?.uuid?.username}</p>
@@ -38,14 +45,22 @@ function GroupDetailCard() {
       {userData?.id === groupDetails.uuid?.id ? (
         <>
           <p>You are the creator of this group</p>
-          <Button variant="danger">Close Group</Button>
+          {groupDetails.status ? (
+            <Button variant="danger" onClick={() => closeGroup()}>
+              Close Group
+            </Button>
+          ) : (
+            <p>The Group is Closed, Nobody Can Join</p>
+          )}
         </>
-      ) : usersInGroup.find((userInGroup) => userInGroup.post.id === user.id) ? (
-        <p>You are already in the group!</p>
-      ) : (
-        <Button variant="danger" onClick={() => joinGroup(groupDetails.id, user.id)}>
+      ) : usersInGroup.some((userInGroup) => userInGroup?.user === userData?.id) ? (
+        <p>You are already in the group</p>
+      ) : groupDetails.status ? (
+        <Button variant="primary" onClick={() => joinGroup(groupDetails.id, user.id)}>
           Join Group
         </Button>
+      ) : (
+        <p>The Group is Closed, Nobody Can Join</p>
       )}
     </div>
   );

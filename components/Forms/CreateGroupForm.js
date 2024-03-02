@@ -36,8 +36,6 @@ function CreateGroupForm({ obj }) {
     getUserFromFBKey(user.uid).then(setUserData);
   }, [user.uid]);
 
-  console.warn(userData);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput((prevState) => ({
@@ -51,7 +49,6 @@ function CreateGroupForm({ obj }) {
     if (obj.id) {
       console.warn('WIP');
     } else {
-      console.warn(userData);
       createGroupPost({
         ...formInput,
         game: Number(formInput.game),
