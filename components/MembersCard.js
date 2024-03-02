@@ -20,6 +20,7 @@ export default function MembersCard() {
     getSingleGroup(id).then(setGroupDetails);
     getUserInGroup(id).then(setMembers);
     getUserFromFBKey(user.uid).then(setUserData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const handleRemoveMember = (memberID) => {
