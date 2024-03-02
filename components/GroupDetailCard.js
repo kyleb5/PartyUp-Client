@@ -4,8 +4,9 @@ import { useRouter } from 'next/router';
 import Button from 'react-bootstrap/Button';
 import { useAuth } from '../utils/context/authContext';
 // eslint-disable-next-line object-curly-newline
-import { getSingleGroup, createGroupMember, getUserInGroup, updateGroup } from '../utils/data/groupData';
+import { getSingleGroup, createGroupMember, getUserInGroup, updateGroup, deleteGroup } from '../utils/data/groupData';
 import getUserFromFBKey from '../utils/data/userData';
+import MembersCard from './MembersCard';
 
 function GroupDetailCard() {
   const [groupDetails, setGroupDetails] = useState([]);
@@ -32,37 +33,64 @@ function GroupDetailCard() {
     window.location.reload();
   };
 
+  const deleteThisGroup = () => {
+    deleteGroup(id);
+    router.push('/');
+  };
+
   console.warn(usersInGroup);
   console.warn(userData);
   return (
-    <div>
-      <p>Created By: {groupDetails?.uuid?.username}</p>
-      <p>{groupDetails.title}</p>
-      <p>Game: {groupDetails?.game?.name}</p>
-      <p>Platform: {groupDetails?.platform}</p>
-      <p>Region: {groupDetails?.region}</p>
-      <p>Skill Level: {groupDetails?.skill_level}</p>
-      {userData?.id === groupDetails.uuid?.id ? (
-        <>
-          <p>You are the creator of this group</p>
-          {groupDetails.status ? (
-            <Button variant="danger" onClick={() => closeGroup()}>
-              Close Group
-            </Button>
-          ) : (
-            <p>The Group is Closed, Nobody Can Join</p>
-          )}
-        </>
-      ) : usersInGroup.some((userInGroup) => userInGroup?.user === userData?.id) ? (
-        <p>You are already in the group</p>
-      ) : groupDetails.status ? (
-        <Button variant="primary" onClick={() => joinGroup(groupDetails.id, user.id)}>
-          Join Group
-        </Button>
+    <>
+      <div>
+        <p>Created By: {groupDetails?.uuid?.username}</p>
+        <p>{groupDetails.title}</p>
+        <p>Game: {groupDetails?.game?.name}</p>
+        <p>Platform: {groupDetails?.platform}</p>
+        <p>Region: {groupDetails?.region}</p>
+        <p>Skill Level: {groupDetails?.skill_level}</p>
+        {userData?.id === groupDetails.uuid?.id ? (
+          <>
+            <p>You are the creator of this group</p>
+            {groupDetails.status ? (
+              <>
+                <Button variant="danger" onClick={() => closeGroup()}>
+                  Close Group
+                </Button>
+                <Button variant="danger" style={{ marginLeft: '5px' }} onClick={deleteThisGroup}>
+                  Delete Group
+                </Button>
+                <Button variant="primary" style={{ marginLeft: '5px' }} onClick={() => router.push(`/group/edit/${id}`)}>
+                  Update Group
+                </Button>
+              </>
+            ) : (
+              <>
+                <p>The Group is Closed, Nobody Can Join</p>
+                <Button variant="danger" style={{ marginLeft: '5px' }} onClick={deleteThisGroup}>
+                  Delete Group
+                </Button>
+              </>
+            )}
+          </>
+        ) : usersInGroup.some((userInGroup) => userInGroup?.user === userData?.id) ? (
+          <p>You are already in the group</p>
+        ) : groupDetails.status ? (
+          <Button variant="primary" onClick={() => joinGroup(groupDetails.id, user.id)}>
+            Join Group
+          </Button>
+        ) : (
+          <p>The Group is Closed, Nobody Can Join</p>
+        )}
+      </div>
+      {usersInGroup.length === 0 ? (
+        <p>No Users In Group</p>
       ) : (
-        <p>The Group is Closed, Nobody Can Join</p>
+        <div>
+          <MembersCard />
+        </div>
       )}
-    </div>
+    </>
   );
 }
 

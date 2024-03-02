@@ -26,6 +26,7 @@ export default function PostCards({ postObj }) {
             <strong>{postObj.mic_needed ? 'Mic Needed' : 'Mic Not Needed'}</strong>
           </Card.Text>
           <Card.Text style={{ margin: '0' }}>Region: {postObj.region}</Card.Text>
+          {postObj.status ? <Card.Text style={{ margin: '0' }}>Status: Open</Card.Text> : <Card.Text style={{ margin: '0' }}>Status: Closed</Card.Text>}
           <Card.Text style={{ margin: '0' }}>Created {formattedDate} ago</Card.Text>
           {/*
     <Button variant="danger" style={{ width: '7rem', height: '2.5rem', marginTop: '3px' }}>
