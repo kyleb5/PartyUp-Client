@@ -52,6 +52,7 @@ function GroupDetailCard() {
         <p>Platform: {groupDetails?.platform}</p>
         <p>Region: {groupDetails?.region}</p>
         <p>Skill Level: {groupDetails?.skill_level}</p>
+        <p>Needed Players: {groupDetails?.needed_players}</p>
         {userData?.id === groupDetails.uuid?.id ? (
           <>
             <p>You are the creator of this group</p>
