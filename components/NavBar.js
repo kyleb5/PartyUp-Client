@@ -29,7 +29,7 @@ export default function NavBar() {
           </Nav>
           <Nav className="ml-auto">
             {' '}
-            <Link passHref href="/">
+            <Link passHref href="/user-profile">
               <Nav.Link>User Profile</Nav.Link>
             </Link>
             {/* Use ml-auto class here */}

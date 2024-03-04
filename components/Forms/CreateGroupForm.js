@@ -50,7 +50,6 @@ function CreateGroupForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
-      console.warn(formInput);
       updateGroup({
         id: formInput.id,
         game: Number(formInput?.game),
@@ -77,8 +76,6 @@ function CreateGroupForm({ obj }) {
       router.push('/');
     }
   };
-
-  console.warn(formInput);
 
   return (
     <div className="center-block-container">
