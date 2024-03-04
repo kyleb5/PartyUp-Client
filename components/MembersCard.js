@@ -14,8 +14,6 @@ export default function MembersCard() {
   const { user } = useAuth();
   const { id } = router.query;
 
-  console.warn(members);
-
   useEffect(() => {
     getSingleGroup(id).then(setGroupDetails);
     getUserInGroup(id).then(setMembers);
@@ -29,8 +27,8 @@ export default function MembersCard() {
   };
 
   return (
-    <div>
-      <h6>Members</h6>
+    <div style={{ textAlign: 'center', listStylePosition: 'inside' }}>
+      <h6>Members:</h6>
       <ul>
         <li>Creator: {groupDetails?.uuid?.username}</li>
         {members.map((member) => (

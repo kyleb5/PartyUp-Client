@@ -26,6 +26,9 @@ export default function NavBar() {
             <Link passHref href="/">
               <Nav.Link>Home</Nav.Link>
             </Link>
+            <Link passHref href="/view-all-games">
+              <Nav.Link>View Games</Nav.Link>
+            </Link>
           </Nav>
           <Nav className="ml-auto">
             {' '}
