@@ -52,7 +52,7 @@ function CreateGroupForm({ obj }) {
     if (obj.id) {
       updateGroup({
         id: formInput.id,
-        game: Number(formInput?.game),
+        game: Number(formInput?.game) || Number(formInput?.game?.id),
         title: formInput.title,
         description: formInput.description,
         needed_players: formInput.needed_players,
@@ -149,17 +149,17 @@ function CreateGroupForm({ obj }) {
 CreateGroupForm.propTypes = {
   obj: PropTypes.shape({
     id: PropTypes.number,
-    game: PropTypes.number,
+    game: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
     title: PropTypes.string,
     description: PropTypes.string,
     needed_players: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     skill_level: PropTypes.string,
     platform: PropTypes.string,
     region: PropTypes.string,
-    mic_needed: PropTypes.string,
+    mic_needed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     status: PropTypes.bool,
-    uuid: PropTypes.string,
-    timestamp: PropTypes.number,
+    uuid: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+    timestamp: PropTypes.string,
   }),
 };
 
