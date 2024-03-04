@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from 'react-bootstrap/Button';
+import { formatDistanceToNow } from 'date-fns';
 import { useAuth } from '../utils/context/authContext';
 // eslint-disable-next-line object-curly-newline
 import { getSingleGroup, createGroupMember, getUserInGroup, updateGroup, deleteGroup } from '../utils/data/groupData';
@@ -15,6 +16,9 @@ function GroupDetailCard() {
   const { user } = useAuth();
   const router = useRouter();
   const { id } = router.query;
+
+  const groupCreatedDate = groupDetails.timestamp ? new Date(groupDetails.timestamp) : null;
+  const formattedDate = groupCreatedDate ? formatDistanceToNow(groupCreatedDate) : '';
 
   useEffect(() => {
     getSingleGroup(id).then(setGroupDetails);
@@ -53,6 +57,7 @@ function GroupDetailCard() {
         <p>Region: {groupDetails?.region}</p>
         <p>Skill Level: {groupDetails?.skill_level}</p>
         <p>Needed Players: {groupDetails?.needed_players}</p>
+        <p>Date Created: {formattedDate} ago</p>
         {userData?.id === groupDetails.uuid?.id ? (
           <>
             <p>You are the creator of this group</p>

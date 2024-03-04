@@ -39,7 +39,9 @@ function Home() {
               </Link>
             </div>
           ))}
-          <Image src="/rightarrow.png" alt="Arrow" height={64} width={64} style={{ marginTop: '6rem', marginLeft: '1rem' }} />
+          <Link passHref href="/view-all-games">
+            <Image src="/rightarrow.png" alt="Arrow" height={64} width={64} style={{ marginTop: '6rem', marginLeft: '1rem' }} />
+          </Link>
         </div>
       </div>
     </div>
