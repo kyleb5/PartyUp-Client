@@ -39,13 +39,10 @@ function GroupDetailCard() {
 
   const handleRemoveMember = () => {
     const userInGroup = usersInGroup.find((userr) => userr?.user?.id === userData?.id);
-    console.warn(userInGroup);
     if (userInGroup) {
       deleteGroupMember(userInGroup.id);
       window.location.reload();
     }
-
-    console.warn(userInGroup);
   };
 
   const closeGroup = () => {

@@ -1,6 +1,8 @@
 /* eslint-disable object-curly-newline */
 import React, { useEffect, useState } from 'react';
 import Image from 'react-bootstrap/Image';
+import { Button } from 'react-bootstrap';
+import Link from 'next/link';
 import gravatar from 'gravatar';
 import { useAuth } from '../utils/context/authContext';
 import { getUserFromFBKey } from '../utils/data/userData';
@@ -12,8 +14,6 @@ export default function UserProfile() {
   useEffect(() => {
     getUserFromFBKey(user.uid).then(setUserData);
   }, [user.uid]);
-
-  console.warn(userData);
 
   const gravatarUrl = gravatar.url(userData.email_address, { s: '200', d: 'identicon', r: 'pg' });
 
@@ -40,6 +40,9 @@ export default function UserProfile() {
           <div>{userData?.account_steam || 'Steam Username Not Provided'}</div>
         </div>
       </div>
+      <Link passHref href="/edit-profile">
+        <Button variant="danger">Edit Profile</Button>
+      </Link>
     </div>
   );
 }
