@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { getUserInGroup, getSingleGroup, deleteGroupMember } from '../utils/data/groupData';
 import { useAuth } from '../utils/context/authContext';
@@ -14,16 +14,19 @@ export default function MembersCard() {
   const { user } = useAuth();
   const { id } = router.query;
 
-  useEffect(() => {
-    getSingleGroup(id).then(setGroupDetails);
-    getUserInGroup(id).then(setMembers);
-    getUserFromFBKey(user.uid).then(setUserData);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  const fetchData = useCallback(async () => {
+    await getSingleGroup(id).then(setGroupDetails);
+    await getUserInGroup(id).then(setMembers);
+    await getUserFromFBKey(user.uid).then(setUserData);
+  }, [id, user.uid]);
 
-  const handleRemoveMember = (memberID) => {
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const handleRemoveMember = async (memberID) => {
     deleteGroupMember(memberID.id);
-    window.location.reload();
+    await fetchData();
   };
 
   return (

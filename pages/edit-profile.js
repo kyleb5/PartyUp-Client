@@ -8,8 +8,8 @@ export default function EditProfile() {
   const { user } = useAuth();
 
   useEffect(() => {
-    getUserFromFBKey(user.uid).then(setUserData);
-  }, [user.uid]);
+    getUserFromFBKey(user.fbKey).then(setUserData);
+  }, [user.fbKey, user.uid]);
 
   return <EditProfileForm obj={userData} />;
 }

@@ -18,7 +18,9 @@ function EditProfileForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
 
   useEffect(() => {
-    if (obj.id) setFormInput(obj);
+    if (obj && obj.id) {
+      setFormInput(obj);
+    }
   }, [obj]);
 
   const handleChange = (e) => {
@@ -41,33 +43,36 @@ function EditProfileForm({ obj }) {
   };
 
   return (
-    <div>
-      <Form onSubmit={handleSubmit} className="w-50">
-        <FormGroup>
-          Enter Email
-          <Form.Control type="text" placeholder="Enter Email" name="email_address" required value={formInput?.email_address} onChange={handleChange} />
-        </FormGroup>
-        <FormGroup>
-          Enter Discord Username
-          <Form.Control type="text" placeholder="Enter Discord Username" name="account_discord" value={formInput?.account_discord} onChange={handleChange} />
-        </FormGroup>
-        <FormGroup>
-          Enter Playstation Username
-          <Form.Control type="text" placeholder="Enter Playstation Username" name="account_playstation" value={formInput?.account_playstation} onChange={handleChange} />
-        </FormGroup>
-        <FormGroup>
-          Enter Xbox Username
-          <Form.Control type="text" placeholder="Enter Xbox Username" name="account_xbox" value={formInput?.account_xbox} onChange={handleChange} />
-        </FormGroup>
-        <FormGroup>
-          Enter Steam Username
-          <Form.Control type="text" placeholder="Enter Steam Username" name="account_steam" value={formInput?.account_steam} onChange={handleChange} />
-        </FormGroup>
-        <Button variant="danger" type="submit" className="w-100">
-          Update Profile
-        </Button>
-      </Form>
-    </div>
+    <>
+      <div style={{ marginTop: '5rem' }} className="text-center d-flex flex-column align-items-center">
+        <title>Party Up | Editing Profile</title>
+        <Form onSubmit={handleSubmit} className="w-50">
+          <FormGroup>
+            Enter Email
+            <Form.Control type="text" placeholder="Enter Email" name="email_address" required value={formInput?.email_address} onChange={handleChange} />
+          </FormGroup>
+          <FormGroup>
+            Enter Discord Username
+            <Form.Control type="text" placeholder="Enter Discord Username" name="account_discord" value={formInput?.account_discord} onChange={handleChange} />
+          </FormGroup>
+          <FormGroup>
+            Enter Playstation Username
+            <Form.Control type="text" placeholder="Enter Playstation Username" name="account_playstation" value={formInput?.account_playstation} onChange={handleChange} />
+          </FormGroup>
+          <FormGroup>
+            Enter Xbox Username
+            <Form.Control type="text" placeholder="Enter Xbox Username" name="account_xbox" value={formInput?.account_xbox} onChange={handleChange} />
+          </FormGroup>
+          <FormGroup>
+            Enter Steam Username
+            <Form.Control type="text" placeholder="Enter Steam Username" name="account_steam" value={formInput?.account_steam} onChange={handleChange} />
+          </FormGroup>
+          <Button style={{ marginTop: '3rem' }} variant="danger" type="submit" className="w-50">
+            Update Profile
+          </Button>
+        </Form>
+      </div>
+    </>
   );
 }
 

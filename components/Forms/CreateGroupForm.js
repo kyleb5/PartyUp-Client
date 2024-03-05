@@ -25,7 +25,7 @@ const initialState = {
 function CreateGroupForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [allGames, setAllGames] = useState([]);
-  const [userData, setUserData] = useState([]);
+  const [setUserData] = useState([]);
   const router = useRouter();
   const timestamp = new Date();
   const { user } = useAuth();
@@ -37,7 +37,7 @@ function CreateGroupForm({ obj }) {
   useEffect(() => {
     getGames().then(setAllGames);
     getUserFromFBKey(user.uid).then(setUserData);
-  }, [user.uid]);
+  }, [setUserData, user.uid]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,7 +70,7 @@ function CreateGroupForm({ obj }) {
         ...formInput,
         game: Number(formInput.game),
         mic_needed: formInput.mic_needed === 'true' ? true : formInput.mic_needed === 'false' ? false : undefined,
-        uuid: userData.id,
+        uuid: user.id,
         timestamp,
       });
       router.push('/');
@@ -79,6 +79,7 @@ function CreateGroupForm({ obj }) {
 
   return (
     <div className="center-block-container">
+      <title>Doing Form Stuff</title>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Form.Label>Group Title</Form.Label>

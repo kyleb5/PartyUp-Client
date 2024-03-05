@@ -47,4 +47,18 @@ const updateProfile = (payload) =>
       .catch(reject);
   });
 
-export { getUserFromFBKey, getSingleUser, updateProfile };
+const createUser = (payload) =>
+  new Promise((resolve, reject) => {
+    fetch(`${clientCredentials.databaseURL}/user`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch(reject);
+  });
+
+export { getUserFromFBKey, getSingleUser, updateProfile, createUser };
