@@ -10,7 +10,6 @@ const initialState = {
   account_playstation: '',
   account_steam: '',
   account_xbox: '',
-  email_address: '',
 };
 
 function EditProfileForm({ obj }) {
@@ -31,14 +30,15 @@ function EditProfileForm({ obj }) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    updateProfile({
+    await updateProfile({
       ...formInput,
       username: obj.username,
       joinDate: obj.joinDate,
       fbKey: obj.fbKey,
     });
+
     router.push('/user-profile');
   };
 
@@ -47,10 +47,6 @@ function EditProfileForm({ obj }) {
       <div style={{ marginTop: '5rem' }} className="text-center d-flex flex-column align-items-center">
         <title>Party Up | Editing Profile</title>
         <Form onSubmit={handleSubmit} className="w-50">
-          <FormGroup>
-            Enter Email
-            <Form.Control type="text" placeholder="Enter Email" name="email_address" required value={formInput?.email_address} onChange={handleChange} />
-          </FormGroup>
           <FormGroup>
             Enter Discord Username
             <Form.Control type="text" placeholder="Enter Discord Username" name="account_discord" value={formInput?.account_discord} onChange={handleChange} />
