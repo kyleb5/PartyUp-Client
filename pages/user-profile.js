@@ -12,8 +12,13 @@ export default function UserProfile() {
   const { user } = useAuth();
 
   useEffect(() => {
-    getUserFromFBKey(user.fbKey).then(setUserData);
-  }, [user.fbKey, user.uid]);
+    const fetchData = async () => {
+      const userFromFB = await getUserFromFBKey(user.fbKey);
+      setUserData(userFromFB);
+    };
+
+    fetchData();
+  }, [user.fbKey]);
 
   const gravatarUrl = gravatar.url(userData?.email_address, { s: '200', d: 'identicon', r: 'pg' });
 

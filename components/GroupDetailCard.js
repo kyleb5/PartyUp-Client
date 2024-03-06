@@ -123,7 +123,7 @@ function GroupDetailCard() {
         {usersInGroup.length === 0 ? (
           <p>No Users In Group</p>
         ) : (
-          <div>
+          <div key={usersInGroup.length}>
             <MembersCard />
           </div>
         )}

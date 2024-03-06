@@ -17,8 +17,8 @@ export default function MembersCard() {
   const fetchData = useCallback(async () => {
     await getSingleGroup(id).then(setGroupDetails);
     await getUserInGroup(id).then(setMembers);
-    await getUserFromFBKey(user.uid).then(setUserData);
-  }, [id, user.uid]);
+    await getUserFromFBKey(user.fbKey).then(setUserData);
+  }, [id, user.fbKey]);
 
   useEffect(() => {
     fetchData();
