@@ -2,8 +2,10 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import { formatDistanceToNow } from 'date-fns';
+import gravatar from 'gravatar';
 import { useAuth } from '../utils/context/authContext';
 // eslint-disable-next-line object-curly-newline
 import { getSingleGroup, createGroupMember, getUserInGroup, updateGroup, deleteGroup, deleteGroupMember } from '../utils/data/groupData';
@@ -14,17 +16,20 @@ function GroupDetailCard() {
   const [groupDetails, setGroupDetails] = useState([]);
   const [userData, setUserData] = useState({});
   const [usersInGroup, setUsersInGroup] = useState([]);
+  const [memberCount, setMemberCount] = useState(0);
   const { user } = useAuth();
   const router = useRouter();
   const { id } = router.query;
 
   const groupCreatedDate = groupDetails.timestamp ? new Date(groupDetails.timestamp) : null;
   const formattedDate = groupCreatedDate ? formatDistanceToNow(groupCreatedDate) : '';
-
   const fetchData = useCallback(async () => {
     await getSingleGroup(id).then(setGroupDetails);
     await getUserFromFBKey(user.fbKey).then(setUserData);
-    await getUserInGroup(id).then(setUsersInGroup);
+    await getUserInGroup(id).then((data) => {
+      setUsersInGroup(data);
+      setMemberCount(data.length + 1);
+    });
   }, [id, user.fbKey]);
 
   useEffect(() => {
@@ -33,7 +38,7 @@ function GroupDetailCard() {
 
   // eslint-disable-next-line no-shadow
   const joinGroup = async (post, user) => {
-    if (groupDetails.needed_players > usersInGroup.length) {
+    if (groupDetails.needed_players > usersInGroup.length + 1) {
       await createGroupMember({ post, user });
       await fetchData();
     } else {
@@ -68,13 +73,18 @@ function GroupDetailCard() {
     <>
       <title>Exploring Groups</title>
       <div style={{ textAlign: 'center', marginTop: '5rem' }}>
-        <p>Created By: {groupDetails?.uuid?.username}</p>
+        <h3>
+          Created By: <Image src={gravatar.url(groupDetails?.uuid?.email_address, { s: '50', d: 'wavatar', r: 'pg' })} rounded />
+          <span style={{ minWidth: '13rem', marginLeft: '5px' }}>{groupDetails?.uuid?.username}</span>
+        </h3>
         <h4>{groupDetails.title}</h4>
         <p>Game: {groupDetails?.game?.name}</p>
         <p>Platform: {groupDetails?.platform}</p>
         <p>Region: {groupDetails?.region}</p>
         <p>Skill Level: {groupDetails?.skill_level}</p>
-        <p>Needed Players: {groupDetails?.needed_players}</p>
+        <p>
+          Needed Players: {memberCount}/{groupDetails?.needed_players}
+        </p>
         <p>{groupDetails.mic_needed ? 'Mic Needed' : 'Mic Not Needed'}</p>
         <p>Date Created: {formattedDate} ago</p>
         {user?.id === groupDetails.uuid?.id ? (
