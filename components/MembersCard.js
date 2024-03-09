@@ -28,11 +28,9 @@ export default function MembersCard() {
   }, [fetchData]);
 
   const handleRemoveMember = async (memberID) => {
-    deleteGroupMember(memberID.id);
+    await deleteGroupMember(memberID.id);
     await fetchData();
   };
-
-  console.warn(groupDetails);
 
   return (
     <div style={{ textAlign: 'center' }}>
