@@ -4,6 +4,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'react-bootstrap/Image';
+import Link from 'next/link';
 import gravatar from 'gravatar';
 import { getUserInGroup, getSingleGroup, deleteGroupMember } from '../utils/data/groupData';
 import { useAuth } from '../utils/context/authContext';
@@ -32,24 +33,30 @@ export default function MembersCard() {
     await fetchData();
   };
 
+  console.warn(groupDetails);
+
   return (
     <div style={{ textAlign: 'center' }}>
       <h6 style={{ marginRight: '11.5rem' }}>Members:</h6>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', backgroundColor: '#252323' }}>
-          <Image src={gravatar.url(groupDetails?.uuid?.email_address, { s: '50', d: 'wavatar', r: 'pg' })} rounded />
-          <span style={{ minWidth: '13rem' }}>{groupDetails?.uuid?.username}</span>
-        </div>
-        {members.map((member) => (
-          <div key={member.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', backgroundColor: '#252323' }}>
-            <Image src={gravatar.url(member?.email_address, { s: '50', d: 'wavatar', r: 'pg' })} rounded />
-            <span style={{ minWidth: '13rem' }}>{member.user.username}</span>
-            {userData?.id === groupDetails?.uuid?.id && (
-              <span style={{ cursor: 'pointer', marginLeft: '8px' }} onClick={() => handleRemoveMember(member)}>
-                🗑️
-              </span>
-            )}
+        <Link href={`/profile/${groupDetails?.uuid?.id}`} passHref>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', backgroundColor: '#252323' }}>
+            <Image src={gravatar.url(groupDetails?.uuid?.email_address, { s: '50', d: 'wavatar', r: 'pg' })} rounded />
+            <span style={{ minWidth: '13rem' }}>{groupDetails?.uuid?.username}</span>
           </div>
+        </Link>
+        {members.map((member) => (
+          <Link href={`/profile/${member.user.id}`} passHref>
+            <div key={member.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', backgroundColor: '#252323' }}>
+              <Image src={gravatar.url(member?.user?.email_address, { s: '50', d: 'wavatar', r: 'pg' })} rounded />
+              <span style={{ minWidth: '13rem' }}>{member.user.username}</span>
+              {userData?.id === groupDetails?.uuid?.id && (
+                <span style={{ cursor: 'pointer', marginLeft: '8px' }} onClick={() => handleRemoveMember(member)}>
+                  🗑️
+                </span>
+              )}
+            </div>
+          </Link>
         ))}
       </div>
     </div>
