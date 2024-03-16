@@ -33,13 +33,11 @@ export default function MembersCard() {
     await fetchData();
   };
 
-  console.warn(groupDetails);
-
   return (
     <div style={{ textAlign: 'center' }}>
       <h6 style={{ marginRight: '11.5rem' }}>Members:</h6>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Link href={`/profile/${groupDetails?.uuid?.id}`} passHref>
+        <Link key={groupDetails?.uuid?.id} href={`/profile/${groupDetails?.uuid?.id}`} passHref>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', backgroundColor: '#252323' }}>
             <Image src={gravatar.url(groupDetails?.uuid?.email_address, { s: '50', d: 'wavatar', r: 'pg' })} rounded />
             <span style={{ minWidth: '13rem' }}>{groupDetails?.uuid?.username}</span>

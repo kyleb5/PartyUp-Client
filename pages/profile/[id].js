@@ -15,8 +15,6 @@ export default function UsersProfile() {
   }, [id]);
 
   const gravatarUrl = gravatar.url(userData?.email_address, { s: '200', d: 'identicon', r: 'pg' });
-
-  console.warn(userData);
   return (
     <>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '40vh' }}>
