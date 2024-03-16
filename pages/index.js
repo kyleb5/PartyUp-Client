@@ -16,8 +16,14 @@ function Home() {
   const { user } = useAuth();
 
   useEffect(() => {
-    getGames().then(setGames);
-    getGroups().then(setGroups);
+    getGames().then((gamesData) => {
+      const shuffledGames = gamesData.sort(() => Math.random() - 0.5);
+      setGames(shuffledGames);
+    });
+    getGroups().then((groupsData) => {
+      const sortedGroups = groupsData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      setGroups(sortedGroups);
+    });
   }, []);
 
   const showMoreGroups = () => {

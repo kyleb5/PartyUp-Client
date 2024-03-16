@@ -43,18 +43,19 @@ export default function MembersCard() {
             <span style={{ minWidth: '13rem' }}>{groupDetails?.uuid?.username}</span>
           </div>
         </Link>
+
         {members.map((member) => (
-          <Link href={`/profile/${member.user.id}`} passHref>
-            <div key={member.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', backgroundColor: '#252323' }}>
-              <Image src={gravatar.url(member?.user?.email_address, { s: '50', d: 'wavatar', r: 'pg' })} rounded />
+          <div key={member.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', backgroundColor: '#252323' }}>
+            <Image src={gravatar.url(member?.user?.email_address, { s: '50', d: 'wavatar', r: 'pg' })} rounded />
+            <Link key={member.id} href={`/profile/${member.user.id}`} passHref>
               <span style={{ minWidth: '13rem' }}>{member.user.username}</span>
-              {userData?.id === groupDetails?.uuid?.id && (
-                <span style={{ cursor: 'pointer', marginLeft: '8px' }} onClick={() => handleRemoveMember(member)}>
-                  🗑️
-                </span>
-              )}
-            </div>
-          </Link>
+            </Link>
+            {userData?.id === groupDetails?.uuid?.id && (
+              <span style={{ cursor: 'pointer', marginLeft: '8px' }} onClick={() => handleRemoveMember(member)}>
+                🗑️
+              </span>
+            )}
+          </div>
         ))}
       </div>
     </div>

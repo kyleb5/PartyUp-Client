@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { signIn } from '../utils/auth';
@@ -17,11 +18,16 @@ function Signin() {
         paddingBlock: '0 5rem',
       }}
     >
+      <div className="text-center mb-4">
+        <img src="/partyup_logo.jpg" alt="Website Logo" height={200} width={200} draggable="false" />
+      </div>
       <h1>Hi there!</h1>
-      <p>Click the button below to login!</p>
-      <Button type="button" size="lg" className="copy-btn" onClick={signIn}>
-        Sign In
-      </Button>
+      <p>In order to use Party Up, Sign In below!</p>
+      <div className="d-flex justify-content-center">
+        <Button type="button" variant="danger" className="copy-btn" onClick={signIn} style={{ width: '25%' }}>
+          Sign In
+        </Button>
+      </div>
     </div>
   );
 }
