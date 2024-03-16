@@ -37,9 +37,10 @@ export default function PostCards({ postObj }) {
         </div>
 
         <div className="right-column" style={{ flex: 1, marginLeft: '15px', textAlign: 'center' }}>
-          <Card.Title>{postObj.title}</Card.Title>
+          <Card.Title style={{ margin: '0' }}>{postObj.game.name}</Card.Title>
+          <Card.Text style={{ margin: '0' }}>{postObj.title}</Card.Text>
           <div>
-            <strong>{postObj.skill_level}</strong>
+            {postObj.skill_level}
             <br />
             <strong>Description:</strong> {postObj.description}
             <Card.Text style={{ margin: '0' }}>Platform: {postObj.platform}</Card.Text>

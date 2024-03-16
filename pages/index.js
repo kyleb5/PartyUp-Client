@@ -2,17 +2,27 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'react-bootstrap/Image';
 import Link from 'next/link';
+import Button from 'react-bootstrap/Button';
 import { clientCredentials } from '../utils/client';
 import { useAuth } from '../utils/context/authContext';
 import { getGames } from '../utils/data/gameData';
+import { getGroups } from '../utils/data/groupData';
+import PostCards from '../components/PostCard';
 
 function Home() {
   const [games, setGames] = useState([]);
+  const [groups, setGroups] = useState([]);
+  const [visibleGroups, setVisibleGroups] = useState(5);
   const { user } = useAuth();
 
   useEffect(() => {
     getGames().then(setGames);
+    getGroups().then(setGroups);
   }, []);
+
+  const showMoreGroups = () => {
+    setVisibleGroups((prevVisibleGroups) => prevVisibleGroups + 5);
+  };
 
   return (
     <div className="text-center d-flex flex-column align-items-center">
@@ -43,6 +53,23 @@ function Home() {
             <Image src="/rightarrow.png" alt="Arrow" height={64} width={64} style={{ marginTop: '6rem', marginLeft: '1rem' }} />
           </Link>
         </div>
+      </div>
+      <div className="container mt-4 p-4 rounded">
+        <h2>Created Groups</h2>
+        {groups.slice(0, visibleGroups).map((group, index) => (
+          <div key={group.id || index} style={{ margin: '10px', marginLeft: '0.5rem', marginRight: '0.5rem' }}>
+            <div className="mb-4">
+              <PostCards postObj={group} />
+            </div>
+          </div>
+        ))}
+        {groups.length > visibleGroups && (
+          <div className="text-center">
+            <Button className="btn btn-primary" onClick={showMoreGroups} variant="danger">
+              Show More
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
