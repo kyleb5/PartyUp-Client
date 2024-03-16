@@ -18,7 +18,7 @@ export default function UsersProfile() {
   return (
     <>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '40vh' }}>
-        <title>Party Up | User Profile</title>
+        <title>Party Up | {userData?.username}</title>
         <Image src={gravatarUrl} alt="Gravatar" roundedCircle height={100} width={100} style={{ marginTop: '15px' }} />
         <h2 style={{ marginBottom: '40px' }}>{userData?.username}</h2>
 
