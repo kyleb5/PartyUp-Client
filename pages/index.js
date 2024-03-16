@@ -42,7 +42,7 @@ function Home() {
           paddingBottom: '5rem',
         }}
       >
-        <h1>Hello {user.fbUser.displayName}! </h1>
+        <h1>Hello {user?.username}! </h1>
 
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link href="/group/new" passHref>
