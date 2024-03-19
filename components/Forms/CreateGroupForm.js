@@ -35,6 +35,13 @@ function CreateGroupForm({ obj }) {
   }, [obj]);
 
   useEffect(() => {
+    getGames().then((gamesData) => {
+      const sortedGames = gamesData.sort((a, b) => a.name.localeCompare(b.name));
+      setAllGames(sortedGames);
+    });
+  }, []);
+
+  useEffect(() => {
     getGames().then(setAllGames);
     getUserFromFBKey(user.uid).then(setUserData);
   }, [setUserData, user.uid]);
@@ -73,7 +80,7 @@ function CreateGroupForm({ obj }) {
         uuid: user.id,
         timestamp,
       });
-      router.push('/');
+      router.push(`/game/${formInput.game}`);
     }
   };
 
@@ -90,11 +97,13 @@ function CreateGroupForm({ obj }) {
           <Form.Label>Select Game:</Form.Label>
           <Form.Control as="select" name="game" required value={formInput.game.id} onChange={handleChange}>
             <option disabled>Select Game</option>
-            {allGames.map((game) => (
-              <option key={game.id} value={game.id}>
-                {game.name}
-              </option>
-            ))}
+            {allGames
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map((game) => (
+                <option key={game.id} value={game.id}>
+                  {game.name}
+                </option>
+              ))}
           </Form.Control>
         </Form.Group>
 

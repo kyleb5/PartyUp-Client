@@ -9,7 +9,7 @@ import styles from '../styles/styles.module.css';
 export default function ViewAllGames() {
   const [games, setGames] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [visibleGames, setVisibleGames] = useState(21);
+  const [visibleGames, setVisibleGames] = useState(14);
 
   useEffect(() => {
     getGames().then((gamesData) => {
@@ -23,7 +23,7 @@ export default function ViewAllGames() {
   };
 
   const handleShowMore = () => {
-    setVisibleGames((prevVisibleGames) => prevVisibleGames + 21);
+    setVisibleGames((prevVisibleGames) => prevVisibleGames + 14);
   };
 
   const filteredGames = games.filter((game) => game.name.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -32,6 +32,7 @@ export default function ViewAllGames() {
   return (
     <>
       <div className={styles.container}>
+        <title>Searching For Game {searchTerm}</title>
         <h1>Viewing Games</h1>
         <input type="text" placeholder="Search games..." value={searchTerm} onChange={handleSearchChange} className={styles.searchInput} />
         <div className={styles.gamesContainer}>
