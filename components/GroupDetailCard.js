@@ -74,7 +74,7 @@ function GroupDetailCard() {
       <title>Exploring Groups</title>
       <div style={{ textAlign: 'center', marginTop: '5rem' }}>
         <h3>
-          Created By: <Image src={gravatar.url(groupDetails?.uuid?.email_address, { s: '50', d: 'wavatar', r: 'pg' })} rounded />
+          Created By: <Image src={gravatar.url(groupDetails?.uuid?.email_address, { s: '50', d: 'identicon', r: 'pg' })} rounded />
           <span style={{ minWidth: '13rem', marginLeft: '5px' }}>{groupDetails?.uuid?.username}</span>
         </h3>
         <h4>{groupDetails.title}</h4>
