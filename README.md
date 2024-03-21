@@ -8,7 +8,11 @@ Finding people to play games with is extremely hard, There is not many specific 
 ## The Solution
 Introducing Party Up, a program curated for gamers to easily find others to play with. Users are able to view specific games and join user-created groups, while also being able to view their profiles to group up!
 
+## Video Preview
 
+[![Video Preview](https://img.youtube.com/vi/O-jN3hkyXMM/0.jpg)](https://www.youtube.com/watch?v=O-jN3hkyXMM)
+
+Click the image above to watch the video preview.
 ___
 ## Getting Started
 ### Use Template
