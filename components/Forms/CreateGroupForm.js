@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
@@ -85,9 +86,11 @@ function CreateGroupForm({ obj }) {
   };
 
   return (
-    <div className="center-block-container">
-      <title>Doing Form Stuff</title>
-      <Form onSubmit={handleSubmit}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+      <Form onSubmit={handleSubmit} style={{ width: '50%' }}>
+        <h2 style={{ textAlign: 'center' }}>
+          {obj.id ? 'Update' : 'Create Group'} {obj.title}
+        </h2>
         <FormGroup>
           <Form.Label>Group Title</Form.Label>
           <Form.Control type="text" placeholder="Enter Group Name Here" name="title" required value={formInput.title} onChange={handleChange} />
@@ -155,7 +158,6 @@ function CreateGroupForm({ obj }) {
     </div>
   );
 }
-
 CreateGroupForm.propTypes = {
   obj: PropTypes.shape({
     id: PropTypes.number,

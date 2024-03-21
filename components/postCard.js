@@ -43,7 +43,11 @@ export default function PostCards({ postObj }) {
             {postObj.skill_level}
             <br />
             <strong>Description:</strong> {postObj.description}
-            <Card.Text style={{ margin: '0' }}>Platform: {postObj.platform}</Card.Text>
+            <div>
+              <Card.Text>
+                Platform: <img src={`/${postObj.platform}.png`} alt="Platform Icon" height={24} width={24} draggable="false" /> {postObj.platform}
+              </Card.Text>
+            </div>
             <Card.Text style={{ margin: '0' }}>
               <img src="/person-icon.png" alt="Players Needed Icon" height={24} width={24} draggable="false" />
               <strong>
