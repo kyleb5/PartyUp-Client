@@ -79,7 +79,9 @@ function GroupDetailCard() {
         </h3>
         <h4>{groupDetails.title}</h4>
         <p>Game: {groupDetails?.game?.name}</p>
-        <p>Platform: {groupDetails?.platform}</p>
+        <p>
+          Platform: <Image src={`/${groupDetails.platform}.png`} alt="Platform Icon" height={24} width={24} draggable="false" /> {groupDetails?.platform}
+        </p>
         <p>Region: {groupDetails?.region}</p>
         <p>Skill Level: {groupDetails?.skill_level}</p>
         <p>

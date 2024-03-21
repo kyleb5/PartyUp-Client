@@ -43,7 +43,7 @@ export default function UserProfile() {
             <div>{userData.account_xbox || 'Xbox Username Not Provided'}</div>
           </div>
           <div style={{ marginBottom: '10px', textAlign: 'center' }}>
-            <Image src="/steam.png" height={32} width={40} />
+            <Image src="/pc.png" height={32} width={40} />
             <div>{userData.account_steam || 'Steam Username Not Provided'}</div>
           </div>
         </div>

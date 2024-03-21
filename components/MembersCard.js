@@ -46,7 +46,7 @@ export default function MembersCard() {
 
         {members.map((member) => (
           <div key={member.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', backgroundColor: '#252323' }}>
-            <Image src={gravatar.url(member?.user?.email_address, { s: '50', d: 'wavatar', r: 'pg' })} rounded />
+            <Image src={gravatar.url(member?.user?.email_address, { s: '50', d: 'identicon', r: 'pg' })} rounded />
             <Link key={member.id} href={`/profile/${member.user.id}`} passHref>
               <span style={{ minWidth: '13rem' }}>{member.user.username}</span>
             </Link>
