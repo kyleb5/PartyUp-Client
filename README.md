@@ -1,8 +1,14 @@
-# React/Next.js Django Auth Template
+# Party Up Front-End Client
 
-## Topics
-- [Get Started](#getting-started)
-- [Starting the Project](#starting-the-project)
+<img width="400" alt="partyup_logo" src="https://github.com/kyleb5/PartyUp-Client/assets/86751427/b8c6ee46-9747-4fa1-86b5-5a74ec0d67bd">
+
+## The Problem
+Finding people to play games with is extremely hard, There is not many specific platforms created for gamers looking for others to group up and game with.
+
+## The Solution
+Party Up was inspired to be a program curated for gamers to create posts for specific games and ranks looking for others to group up with, while also providing group messages to communicate with each other.
+
+
 ___
 ## Getting Started
 ### Use Template
