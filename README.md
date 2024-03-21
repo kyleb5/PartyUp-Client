@@ -6,7 +6,7 @@
 Finding people to play games with is extremely hard, There is not many specific platforms created for gamers looking for others to group up and game with.
 
 ## The Solution
-Party Up was inspired to be a program curated for gamers to create posts for specific games and ranks looking for others to group up with, while also providing group messages to communicate with each other.
+Introducing Party Up, a program curated for gamers to easily find others to play with. Users are able to view specific games and join user-created groups, while also being able to view their profiles to group up!
 
 
 ___
